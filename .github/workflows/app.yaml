@@ -3,7 +3,7 @@ name: Github Workflow Demo
 on:
   push:
     branches:
-    - master
+    - main
 
 jobs:
   deploy:
