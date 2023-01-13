@@ -1,0 +1,76 @@
+
+<html>
+  <style>
+    .sub-button{
+      color: white;
+      background-color: rgb(237, 57, 57);
+      border: none;
+      cursor: pointer;
+      margin-right: 10px;
+      font-size: 14px;
+      transition: opacity 0.15s;
+      border-radius: 2px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      padding-left: 10px;
+      padding-right: 10px;
+  
+    }
+  
+    .sub-button:hover{
+      opacity: 0.7;
+    }
+  
+    .sub-button:active{
+      opacity: 0.5;
+    }
+    .join-button{
+      color: rgb(48, 48, 173);
+      background-color: white;
+      border-color: blue;
+      border-width: 1px;
+      border-radius: 2px;
+      cursor: pointer;
+      /* height: 40px;
+      width: 70px;  not a good idea to force hegith adn width -  if we pass lenghy text it overflows - if not height and iwdth are 
+      then it automatically adjust the content so use padding to give space around the text */
+      margin-right: 10px;
+      transition: background-color 0.15s, color 0.15s;
+      padding: 20px;
+    }
+    /* inverse colors */
+    .join-button:hover{
+      background-color: rgb(48, 48, 173);
+      color: white;
+    }
+    .join-button:active{
+     opacity: 0.7;
+    }
+    .tweet-button{
+      color: white;
+      background-color: rgb(91, 91, 221);
+      border-radius: 25px;
+      cursor: pointer;
+      height: 40px;
+      width: 70px;
+      border: none;
+      font-weight: bold ;
+      font-size: 15px;
+  
+    }
+    .tweet-button:hover{
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+  
+    }
+  </style>
+  <button class="sub-button"> SUBSCRIBE</button>
+  <button class="join-button"> JOIN </button>
+  <button class="tweet-button"> Tweet</button>
+  
+  </html>
+  <!-- 
+    1. Using pading is better alternative to height and width
+    2. Browser try to align the elements based on text position 
+  
+  
+  -->
