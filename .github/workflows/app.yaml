@@ -23,4 +23,4 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
     
     - name: Deploy to AWS S3
-      run: aws s3 sync . sravanthi-github-action-workflow
+      run: aws s3 sync . s3://sravanthi-github-action-workflow
