@@ -41,20 +41,16 @@ jobs:
     - name: Deploy to AWS S3
       run: aws s3 sync ./build s3://sravanthi-github-action-workflow
   deploy-to-gcp:
-      name: Github Workflow actions Gcp
+    name: Github Workflow actions Gcp
 
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
     - name: Build site
-      run: |
-        # Build the site using your preferred static site generator
-        # e.g. `npm run build` or `hugo`
-        # ...
-
+      run: npm run build
     - name: Authenticate to GCP
       uses: google/cloud-sdk@v3.1.0
       env:
@@ -65,6 +61,4 @@ jobs:
         args: auth application-default login
 
     - name: Deploy to GCP
-      run: |
-        # Deploy the site to GCP
-        gcloud app deploy app.yaml --quiet
+      run: gcloud app deploy
