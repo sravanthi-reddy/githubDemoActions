@@ -34,7 +34,7 @@ jobs:
       run: npm ci
     - name: Run Tests
       run: npm test
-  deploy to aws:
+  deploy:
     name: Github Workflow actions 
     runs-on: ubuntu-latest
     
