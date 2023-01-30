@@ -1,0 +1,97 @@
+name: Github Workflow Demo
+
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install dependencies
+        run: npm install    
+      - name: Test
+        run: npm test
+        env:
+          CI: true
+      - name: Generate build
+        run: npm run build
+      # Share artifact inside workflow
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v1
+        with:
+          name: react-github-actions-build
+          path: build
+  deploy:
+    runs-on: ubuntu-latest
+    # When application is successfully tested and build has been generated
+    # Then we can start with deployment
+    needs: build
+    steps:
+      # Download previously shared build
+      - name: Get artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: react-github-actions-build
+      # Set the credentials from repository settings/secrets
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-s3-bucket: ${{ secrets.AWS_S3_BUCKET }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      # Copy the files from build folder to the S3 bucket
+      - name: Deploy to S3
+        run: aws s3 sync . s3://sravanthi-github-action-workflow 
+        working-directory: react-github-actions-build
+
+# jobs:
+#   deploy-to-aws:
+#     name: Github Workflow actions AWS
+#     runs-on: ubuntu-latest
+    
+#     steps:
+#     - name: Checkout
+#       uses: actions/checkout@v2
+      
+#     - name: Configure AWS credentials
+#       uses: aws-actions/configure-aws-credentials@v1
+#       with:
+#         aws-s3-bucket: ${{ secrets.AWS_S3_BUCKET }}
+#         aws-access-key-id: ${{ secrets.AWS_ACCESS_ID }}
+#         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#         aws-region: ${{ secrets.AWS_REGION }}
+    
+#     - name: Deploy to AWS S3
+#       run: aws s3 sync ./build s3://sravanthi-github-action-workflow
+#   deploy-to-gcp:
+#     name: Github Workflow actions Gcp
+
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
+
+#     - name: Build site
+#       run: npm run build
+#     - name: Authenticate to GCP
+#       uses: google/cloud-sdk@v3.1.0
+#       env:
+#         GOOGLE_PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
+#         GOOGLE_CLIENT_EMAIL: ${{ secrets.GOOGLE_CLIENT_EMAIL }}
+#         GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+#       with:
+#         args: auth application-default login
+
+#     - name: Deploy to GCP
+#       run: gcloud app deploy
