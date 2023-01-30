@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class Counter extends Component {
   render() {
     return (
-      <div>
+      <div data-testid="counter">
         <div className="row">
           <div className="">
             <span style={{ fontSize: 24 }} className={this.getBadgeClasses()}>
@@ -44,7 +44,7 @@ class Counter extends Component {
 
   formatCount = () => {
     const { value } = this.props.counter
-    return value === 0 ? 'Zeroooooo' : value
+    return value === 0 ? 'Zero' : value
   }
 }
 

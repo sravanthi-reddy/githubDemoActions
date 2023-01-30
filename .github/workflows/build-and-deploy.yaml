@@ -7,7 +7,7 @@ on:
     - main
 
 jobs:
-  build:
+  build-aws:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -30,7 +30,7 @@ jobs:
         with:
           name: react-github-actions-build
           path: build
-  deploy:
+  deploy-aws:
     runs-on: ubuntu-latest
     # When application is successfully tested and build has been generated
     # Then we can start with deployment

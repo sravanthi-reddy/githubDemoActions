@@ -3,7 +3,7 @@ import React from 'react'
 
 const NavBar = ({ totalCounters }) => {
   return (
-    <nav className="navbar navbar-light">
+    <nav data-testid="navBar" className="navbar navbar-light">
       <div className="navbar-brand">
         <i className="fa fa-shopping-cart fa-lg m-2" aria-hidden="true" />
         <span
